@@ -178,7 +178,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color.fromRGBO(244, 13, 165, 15),
+        backgroundColor: Color.fromRGBO(245, 13, 165, 15),
         child: Icon(
           FontAwesomeIcons.receipt,
           color: Colors.white,
