@@ -26,7 +26,7 @@ class OrderDetailBloc {
   _orderDetailTransformer() {
     return ScanStreamTransformer(
       (Future<OrderDetail> orderDetail, int id, int index) {
-        print("MOVIE ID : $id");
+        print("ORDER ID : $id");
         orderDetail = _repository.fetchOrderDetail(id);
         return orderDetail;
       },
