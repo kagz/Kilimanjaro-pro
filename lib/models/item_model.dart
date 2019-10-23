@@ -51,7 +51,7 @@ class Order {
   String paymentDetailsType;
   int total;
   dynamic error;
-  int dispatchStatus;
+  int dispatchStatus = 1;
   dynamic dispatchTime;
   DateTime createdAt;
   DateTime updatedAt;

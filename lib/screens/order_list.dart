@@ -51,8 +51,6 @@ class OrderListState extends State<OrderList> {
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       child: ListView.builder(
         itemBuilder: (context, index) {
-          // itemCount:
-          // snapshot.data.orders.length;
           return GestureDetector(
             onTap: () => goToOrdersDetailPage(snapshot.data, index),
             child: Padding(

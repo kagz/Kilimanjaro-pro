@@ -122,7 +122,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 5.0, right: 5.0),
+                      margin: EdgeInsets.only(left: 10.0, right: 10.0),
                     ),
                     Icon(
                       Icons.phone_iphone,
@@ -140,7 +140,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   ],
                 ),
                 Container(margin: EdgeInsets.only(top: 8.0, bottom: 8.0)),
-                Text(widget.description),
+                // Text(widget.description),
+                // descriptionText(),
                 Container(margin: EdgeInsets.only(top: 8.0, bottom: 8.0)),
 
                 StreamBuilder(
@@ -167,10 +168,6 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     }
                   },
                 ),
-
-                // Chip(
-                //   label: Text('Drama'),
-                // ),
               ],
             ),
           ),
@@ -198,13 +195,15 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
       var cart = data.data.orders.cart;
       for (var i = 0; i < cart.length; i++) {
         String name = cart[i].productName;
-        // String qty = cart[i].quantity.toString();
-        print("Inside first loop");
+        String qty = cart[i].quantity.toString();
+        String desc = cart[i].description;
         cartList.add(name);
+        cartList.add(qty);
+        cartList.add(desc);
       }
 
       for (var i = 0; i < cartList.length; i++) {
-        print("Inside second loop");
+        // print("Inside second loop");
         children.add(Padding(
           padding: const EdgeInsets.all(8.0),
           child: Chip(

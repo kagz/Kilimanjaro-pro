@@ -19,11 +19,8 @@ class OrderApiProvider {
   }
 
   Future<OrderDetail> fetchOrderDetail(int orderId) async {
-    final response = await client.get(
-        "https://demo.kilimanjarofood.co.ke/api/v1/dispatch/order?orderId=$orderId");
-    print("$_baseUrl/order?orderId=$orderId");
+    final response = await client.get("$_baseUrl/order?orderId=$orderId");
     if (response.statusCode == 200) {
-      print(response.body);
       return OrderDetail.fromJson(json.decode(response.body));
     } else {
       throw Exception('Failed to retrieve Order Detail');

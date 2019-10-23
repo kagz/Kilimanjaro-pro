@@ -30,10 +30,8 @@ class OrderDetailBloc {
   _orderDetailTransformer() {
     return ScanStreamTransformer(
       (Future<OrderDetail> orderDetail, int id, int index) {
-        print("MOVIE ID kwa detail : $id");
         orderDetail = _repository.fetchOrderDetail(id);
-        print("NAFIKA HAPA PIA : $id");
-        print(orderDetail);
+
         return orderDetail;
       },
     );
