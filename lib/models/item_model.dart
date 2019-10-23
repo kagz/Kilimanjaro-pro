@@ -1,80 +1,228 @@
+import 'dart:convert';
+
+ItemModel orderDetailFromJson(String str) =>
+    ItemModel.fromJson(json.decode(str));
+
+String orderDetailToJson(ItemModel data) => json.encode(data.toJson());
+
 class ItemModel {
-  List<_Result> _orders = [];
+  String status;
+  Data data;
 
-  ItemModel.fromJson(Map<String, dynamic> parsedJson) {
-    print(parsedJson['data']['orders'].length);
-    List<_Result> temp = [];
-    for (int i = 0; i < parsedJson['data']['orders'].length; i++) {
-      _Result result = _Result(parsedJson['data']['orders'][i]);
-      temp.add(result);
-    }
-    _orders = temp;
-  }
+  ItemModel({
+    this.status,
+    this.data,
+  });
 
-  List<_Result> get orders => _orders;
+  factory ItemModel.fromJson(Map<String, dynamic> json) => ItemModel(
+        status: json["status"],
+        data: Data.fromJson(json["data"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "status": status,
+        "data": data.toJson(),
+      };
 }
 
-class _Result {
-  //         "cart": [
-  //             {
-  //                 "product_id": 34,
-  //                 "quantity": 1,
-  //                 "price": null,
-  //                 "accompaniment_id": null,
-  //                 "product_name": "Berr",
-  //                 "description": "Fried Liver",
-  //                 "products_attribute_accompaniment": null,
-  //                 "product_attrubute_size": null,
-  //                 "product_attrubute_price": null
-  //             }
-  //         ]
-  //     }
-  // }
+class Data {
+  List<Order> orders;
 
-  int _id; //kilima
-  int _dispatch_status; //NOT int..........
-  var _quantity; //kil
-  String _name; //kilma
-  int _total; //NOT double.................
-  String _mobile;
-  String _payment_details_type; //kilima
-  String _original_name; //kilman
-  List _cart = []; //kilman
+  Data({
+    this.orders,
+  });
 
-  String _description; //kiliman
-  String _created_at; //kilimanl
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+        orders: List<Order>.from(json["orders"].map((x) => Order.fromJson(x))),
+      );
 
-  _Result(result) {
-    _id = result['id'];
-    _dispatch_status = result['dispatch_status'];
-    _quantity = result['quantity'];
-    _name = result['name'];
-    _total = result['total']; //not a double
-    _mobile = result['mobile'];
-    _payment_details_type = result['payment_details_type'];
+  Map<String, dynamic> toJson() => {
+        "orders": List<dynamic>.from(orders.map((x) => x.toJson())),
+      };
+}
 
-    // for (int i = 0; i < result['cart'].length; i++) {
-    //   _cart.add(result['cart'][i]);
-    // }
+class Order {
+  int id;
+  int userId;
+  String name;
+  String countryCode;
+  String mobile;
+  String email;
+  String paymentDetailsType;
+  int total;
+  dynamic error;
+  int dispatchStatus;
+  dynamic dispatchTime;
+  DateTime createdAt;
+  DateTime updatedAt;
+  String deliveryReference;
+  String deliveryAddress;
+  String deliveryDropOffCoordinate;
+  String deliveryContactPhoneNumber;
+  String deliveryLocality;
+  int deliveryCharge;
 
-    _description = result['description'];
-    _created_at = result['created_at'];
-  }
+  String paymentDetailsReference;
+  String paymentDetailsProcessorReference;
+  int paymentDetailsAmount;
 
-  String get created_at => _created_at;
+  String paymentDetailsPhoneNumber;
+  List<Cart> cart;
 
-  String get description => _description;
+  Order({
+    this.id,
+    this.userId,
+    this.name,
+    this.countryCode,
+    this.mobile,
+    this.email,
+    this.paymentDetailsType,
+    this.total,
+    this.error,
+    this.dispatchStatus,
+    this.dispatchTime,
+    this.createdAt,
+    this.updatedAt,
+    this.deliveryReference,
+    this.deliveryAddress,
+    this.deliveryDropOffCoordinate,
+    this.deliveryContactPhoneNumber,
+    this.deliveryLocality,
+    this.deliveryCharge,
+    this.paymentDetailsReference,
+    this.paymentDetailsProcessorReference,
+    this.paymentDetailsAmount,
+    this.paymentDetailsPhoneNumber,
+    this.cart,
+  });
 
-  List get cart => _cart;
-  String get mobile => _mobile;
-  String get payment_details_type => _payment_details_type;
+  factory Order.fromJson(Map<String, dynamic> json) => Order(
+        id: json["id"],
+        userId: json["user_id"] == null ? null : json["user_id"],
+        name: json["name"],
+        countryCode: json["country_code"],
+        mobile: json["mobile"],
+        email: json["email"],
+        paymentDetailsType: json["payment_details_type"],
+        total: json["total"],
+        error: json["error"],
+        dispatchStatus: json["dispatch_status"],
+        dispatchTime: json["dispatch_time"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+        deliveryReference: json["delivery_reference"],
+        deliveryAddress: json["delivery_address"],
+        deliveryDropOffCoordinate: json["delivery_drop_off_coordinate"],
+        deliveryContactPhoneNumber: json["delivery_contact_phone_number"],
+        deliveryLocality: json["delivery_locality"] == null
+            ? null
+            : json["delivery_locality"],
+        deliveryCharge: json["delivery_charge"],
+        paymentDetailsReference: json["payment_details_reference"] == null
+            ? null
+            : json["payment_details_reference"],
+        paymentDetailsProcessorReference:
+            json["payment_details_processor_reference"] == null
+                ? null
+                : json["payment_details_processor_reference"],
+        paymentDetailsAmount: json["payment_details_amount"],
+        paymentDetailsPhoneNumber: json["payment_details_phone_number"] == null
+            ? null
+            : json["payment_details_phone_number"],
+        cart: List<Cart>.from(json["cart"].map((x) => Cart.fromJson(x))),
+      );
 
-  int get total => _total;
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "user_id": userId == null ? null : userId,
+        "name": name,
+        "country_code": countryCode,
+        "mobile": mobile,
+        "email": email,
+        "payment_details_type": paymentDetailsType,
+        "total": total,
+        "error": error,
+        "dispatch_status": dispatchStatus,
+        "dispatch_time": dispatchTime,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+        "delivery_reference": deliveryReference,
+        "delivery_address": deliveryAddress,
+        "delivery_drop_off_coordinate": deliveryDropOffCoordinate,
+        "delivery_contact_phone_number": deliveryContactPhoneNumber,
+        "delivery_locality": deliveryLocality == null ? null : deliveryLocality,
+        "delivery_charge": deliveryCharge,
+        "payment_details_reference":
+            paymentDetailsReference == null ? null : paymentDetailsReference,
+        "payment_details_processor_reference":
+            paymentDetailsProcessorReference == null
+                ? null
+                : paymentDetailsProcessorReference,
+        "payment_details_amount": paymentDetailsAmount,
+        "payment_details_phone_number": paymentDetailsPhoneNumber == null
+            ? null
+            : paymentDetailsPhoneNumber,
+        "cart": List<dynamic>.from(cart.map((x) => x.toJson())),
+      };
+}
 
-  String get name => _name;
+class Cart {
+  int productId;
+  int quantity;
+  int price;
+  int accompanimentId;
+  String productName;
+  String description;
+  String productsAttributeAccompaniment;
+  String productAttrubuteSize;
+  int productAttrubutePrice;
 
-  double get quantity => _quantity;
-  int get dispatch_status => _dispatch_status; //not a int
+  Cart({
+    this.productId,
+    this.quantity,
+    this.price,
+    this.accompanimentId,
+    this.productName,
+    this.description,
+    this.productsAttributeAccompaniment,
+    this.productAttrubuteSize,
+    this.productAttrubutePrice,
+  });
 
-  int get id => _id;
+  factory Cart.fromJson(Map<String, dynamic> json) => Cart(
+        productId: json["product_id"],
+        quantity: json["quantity"],
+        price: json["price"] == null ? null : json["price"],
+        accompanimentId:
+            json["accompaniment_id"] == null ? null : json["accompaniment_id"],
+        productName: json["product_name"],
+        description: json["description"],
+        productsAttributeAccompaniment:
+            json["products_attribute_accompaniment"] == null
+                ? null
+                : json["products_attribute_accompaniment"],
+        productAttrubuteSize: json["product_attrubute_size"] == null
+            ? null
+            : json["product_attrubute_size"],
+        productAttrubutePrice: json["product_attrubute_price"] == null
+            ? null
+            : json["product_attrubute_price"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "product_id": productId,
+        "quantity": quantity,
+        "price": price == null ? null : price,
+        "accompaniment_id": accompanimentId == null ? null : accompanimentId,
+        "product_name": productName,
+        "description": description,
+        "products_attribute_accompaniment":
+            productsAttributeAccompaniment == null
+                ? null
+                : productsAttributeAccompaniment,
+        "product_attrubute_size":
+            productAttrubuteSize == null ? null : productAttrubuteSize,
+        "product_attrubute_price":
+            productAttrubutePrice == null ? null : productAttrubutePrice,
+      };
 }

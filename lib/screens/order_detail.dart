@@ -5,7 +5,6 @@ import 'package:kilimanjaro_app/blocs/order_detail_bloc_provider.dart';
 import 'package:kilimanjaro_app/models/order_detail.dart';
 
 class OrderDetailScreen extends StatefulWidget {
-  final posterUrl;
   final description;
   final orderDate;
   final String name;
@@ -15,7 +14,6 @@ class OrderDetailScreen extends StatefulWidget {
 //mobile
   OrderDetailScreen({
     this.name,
-    this.posterUrl,
     this.description,
     this.orderDate,
     this.total,
@@ -34,6 +32,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
   @override
   void didChangeDependencies() {
     bloc = OrderDetailBlocProvider.of(context).bloc;
+    bloc.fetchSimilarOrdersById(widget.id);
     super.didChangeDependencies();
   }
 
@@ -141,7 +140,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   ],
                 ),
                 Container(margin: EdgeInsets.only(top: 8.0, bottom: 8.0)),
-                // Text(widget.description),
+                Text(widget.description),
                 Container(margin: EdgeInsets.only(top: 8.0, bottom: 8.0)),
 
                 StreamBuilder(
@@ -195,10 +194,11 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
   Widget chipLayout(OrderDetail data) {
     List<Widget> children = List<Widget>();
 
-    if (data.cart.isNotEmpty) {
-      var cart = data.cart;
+    if (data.data.orders.cart.isNotEmpty) {
+      var cart = data.data.orders.cart;
       for (var i = 0; i < cart.length; i++) {
-        String name = cart[i].name;
+        String name = cart[i].productName;
+        // String qty = cart[i].quantity.toString();
         print("Inside first loop");
         cartList.add(name);
       }

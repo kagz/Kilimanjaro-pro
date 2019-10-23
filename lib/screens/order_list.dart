@@ -67,13 +67,13 @@ class OrderListState extends State<OrderList> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       new MealCard(
-                          orderName: snapshot.data.orders[index].name,
-                          paymentMode:
-                              snapshot.data.orders[index].payment_details_type,
-                          orderTime:
-                              snapshot.data.orders[index].created_at.toString(),
-                          orderAmount:
-                              snapshot.data.orders[index].total.toString()),
+                          orderName: snapshot.data.data.orders[index].name,
+                          paymentMode: snapshot
+                              .data.data.orders[index].paymentDetailsType,
+                          orderTime: snapshot.data.data.orders[index].createdAt
+                              .toString(),
+                          orderAmount: snapshot.data.data.orders[index].total
+                              .toString()),
                       SizedBox(
                         width: 10,
                       ),
@@ -99,7 +99,7 @@ class OrderListState extends State<OrderList> {
             ),
           );
         },
-        itemCount: snapshot.data.orders.length,
+        itemCount: snapshot.data.data.orders.length,
       ),
     );
   }
@@ -108,11 +108,11 @@ class OrderListState extends State<OrderList> {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return OrderDetailBlocProvider(
         child: OrderDetailScreen(
-          mobile: data.orders[index].mobile,
-          name: data.orders[index].name,
-          orderDate: data.orders[index].created_at,
-          total: data.orders[index].total.toString(),
-          id: data.orders[index].id,
+          mobile: data.data.orders[index].mobile,
+          name: data.data.orders[index].name,
+          orderDate: data.data.orders[index].createdAt,
+          total: data.data.orders[index].total.toString(),
+          id: data.data.orders[index].id,
         ),
       );
     }));
@@ -132,6 +132,7 @@ class MealCard extends StatelessWidget {
   final String paymentMode;
   final String orderTime;
   final String mobile;
+
   @override
   Widget build(BuildContext context) {
     return new Container(

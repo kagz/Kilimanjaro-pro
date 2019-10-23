@@ -11,20 +11,19 @@ class OrderApiProvider {
 
   Future<ItemModel> fetchOrderList() async {
     final response = await client.get("$_baseUrl/orders");
-    print(response.body.toString());
     if (response.statusCode == 200) {
-      print("Inside 200 status code");
       return ItemModel.fromJson(json.decode(response.body));
     } else {
-      print(response.body);
       throw Exception('Failed to load orders list');
     }
   }
 
-  Future<OrderDetail> fetchOrderDetail(int id) async {
-    final response = await client.get("$_baseUrl/$id");
-    print(response.body.toString());
+  Future<OrderDetail> fetchOrderDetail(int orderId) async {
+    final response = await client.get(
+        "https://demo.kilimanjarofood.co.ke/api/v1/dispatch/order?orderId=$orderId");
+    print("$_baseUrl/order?orderId=$orderId");
     if (response.statusCode == 200) {
+      print(response.body);
       return OrderDetail.fromJson(json.decode(response.body));
     } else {
       throw Exception('Failed to retrieve Order Detail');

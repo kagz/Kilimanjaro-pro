@@ -8,6 +8,6 @@ class Repository {
 
   Future<ItemModel> fetchOrdersList() => _orderApiProvider.fetchOrderList();
 
-  Future<OrderDetail> fetchOrderDetail(int id) =>
-      _orderApiProvider.fetchOrderDetail(id);
+  Future<OrderDetail> fetchOrderDetail(int orderId) =>
+      _orderApiProvider.fetchOrderDetail(orderId);
 }
