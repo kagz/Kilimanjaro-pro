@@ -106,6 +106,7 @@ class OrderListState extends State<OrderList> {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return OrderDetailBlocProvider(
         child: OrderDetailScreen(
+          paymentMode:data.data.orders[index].paymentDetailsType,
           mobile: data.data.orders[index].mobile,
           name: data.data.orders[index].name,
           orderDate: data.data.orders[index].createdAt,
@@ -141,9 +142,10 @@ class MealCard extends StatelessWidget {
             child: Icon(
               FontAwesomeIcons.userTie,
               color: Colors.black,
-              size: 20.0,
+              size: 28.0,
             ),
           ),
+          Container(margin: EdgeInsets.only(top: 8.0, bottom: 8.0)),
           Padding(
             padding: const EdgeInsets.only(left: 2.0),
             child: Container(

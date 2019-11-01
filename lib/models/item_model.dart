@@ -53,8 +53,8 @@ class Order {
   dynamic error;
   int dispatchStatus = 1;
   dynamic dispatchTime;
-  DateTime createdAt;
-  DateTime updatedAt;
+  String createdAt;
+  String updatedAt;
   String deliveryReference;
   String deliveryAddress;
   String deliveryDropOffCoordinate;
@@ -108,8 +108,8 @@ class Order {
         error: json["error"],
         dispatchStatus: json["dispatch_status"],
         dispatchTime: json["dispatch_time"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
         deliveryReference: json["delivery_reference"],
         deliveryAddress: json["delivery_address"],
         deliveryDropOffCoordinate: json["delivery_drop_off_coordinate"],
@@ -144,8 +144,8 @@ class Order {
         "error": error,
         "dispatch_status": dispatchStatus,
         "dispatch_time": dispatchTime,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "created_at": createdAt,
+        "updated_at": updatedAt,
         "delivery_reference": deliveryReference,
         "delivery_address": deliveryAddress,
         "delivery_drop_off_coordinate": deliveryDropOffCoordinate,

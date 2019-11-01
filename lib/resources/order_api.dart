@@ -10,8 +10,9 @@ class OrderApiProvider {
   final _baseUrl = "https://demo.kilimanjarofood.co.ke/api/v1/dispatch";
 
   Future<ItemModel> fetchOrderList() async {
-    final response = await client.get("$_baseUrl/orders");
-    if (response.statusCode == 200) {
+    final response = await client.get("$_baseUrl/orders?dispatchStatus=0");
+    print(response.body.length);
+    if (response.statusCode == 200 ) {
       return ItemModel.fromJson(json.decode(response.body));
     } else {
       throw Exception('Failed to load orders list');

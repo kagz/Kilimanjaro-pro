@@ -5,7 +5,7 @@ import 'package:kilimanjaro_app/blocs/order_detail_bloc_provider.dart';
 import 'package:kilimanjaro_app/models/order_detail.dart';
 
 class OrderDetailScreen extends StatefulWidget {
-  final description;
+  final paymentMode;
   final orderDate;
   final String name;
   final String total;
@@ -14,7 +14,7 @@ class OrderDetailScreen extends StatefulWidget {
 //mobile
   OrderDetailScreen({
     this.name,
-    this.description,
+    this.paymentMode,
     this.orderDate,
     this.total,
     this.id,
@@ -89,7 +89,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       textColor: Colors.white,
                       label: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('Order Review'),
+                        child: Text(' Details'),
                       ),
                       shape: StadiumBorder(),
                       color: Colors.red,
@@ -133,6 +133,22 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     ),
                     Text(
                       widget.mobile,
+                      style: TextStyle(
+                        fontSize: 18.0,
+                      ),
+                    ),
+                     Container(
+                      margin: EdgeInsets.only(left: 10.0, right: 10.0),
+                    ),
+                    Icon(
+                      FontAwesomeIcons.moneyBillWaveAlt,
+                      color: Colors.red,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 6.0, right: 6.0),
+                    ),
+                    Text(
+                      widget.paymentMode,
                       style: TextStyle(
                         fontSize: 18.0,
                       ),
